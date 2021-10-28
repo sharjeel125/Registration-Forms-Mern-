@@ -48,6 +48,13 @@ function Login() {
     })
       .then(res => {
         console.log(res.data);
+        if (res.data === "Authentication fail") {
+          alert ("Wrond password")
+          
+        }
+        else{
+          window.location.href="/"
+        }
 
       });
     resetForm({ values: '' })

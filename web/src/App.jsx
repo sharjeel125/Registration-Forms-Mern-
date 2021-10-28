@@ -1,6 +1,8 @@
 import React from "react";
 import Signup from "./component/Signup"
 import Login from "./component/Login"
+import Dash from "./component/Dash"
+
 import {
 
   Switch,
@@ -13,11 +15,25 @@ function App() {
 
   return (
     <>
-    
+      <Switch>
+        <Route exact path="/">
+          <Dash />
+        </Route>
+
+        <Route path="/login">
+          <Login />
+        </Route>
+
+        <Route  path="/signup">
+          <Signup />
+        </Route>
+
+      </Switch>
+
       <nav>
         <ul>
           <li>
-            <Link to="/">Signup</Link>
+            <Link to="/signup">Signup</Link>
           </li>
           <li>
             <Link to="/login">Login</Link>
@@ -25,17 +41,6 @@ function App() {
         </ul>
       </nav>
 
-      <Switch>
-
-        <Route path="/login">
-          <Login />
-        </Route>
-
-        <Route exact path="/">
-          <Signup />
-        </Route>
-
-      </Switch>
     </>
 
 

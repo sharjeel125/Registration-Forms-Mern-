@@ -1,4 +1,5 @@
 const express = require('express')
+const bcrypt = require('bcrypt');
 const PORT = process.env.PORT || 5000
 const app = express()
 const path = require('path')
@@ -27,14 +28,36 @@ app.post('/api/v1/registration', (req, res) => {
 
     console.log(req.body)
 
-    let newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password
-    })
-    newUser.save(() => {
-        console.log("data saved")
-        res.send('profile created')
+    
+
+    User.findOne({ email: req.body.email }, (err, user) => {
+
+        if (err) {
+            res.status(500).send("error in getting database")
+        } else {
+            if (user) {
+
+                if (user.email === req.body.email) {
+                    res.send(  "Email Already authorized");
+                    
+
+                } else {
+                    let newUser = new User({
+                        name: req.body.name,
+                        email: req.body.email,
+                        password: req.body.password
+                    })
+                    newUser.save(() => {
+                        console.log("data saved")
+                        res.send('profile created')
+                    })
+                }
+
+            } else {
+                res.send("user not found");
+            }
+        }
+
     })
 })
 
@@ -60,7 +83,7 @@ app.post('/api/v1/login', (req, res) => {
             if (user) {
 
                 if (user.password === req.body.password) {
-                    res.send(user + "user is found");
+                    res.send("user is found");
                     
 
                 } else {

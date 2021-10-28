@@ -50,9 +50,17 @@ function Signup() {
     })
       .then(res => {
         console.log(res.data);
+        if (res.data === "Email Already authorized") {
+          alert ("Email Already authorized")
+          
+        }
+        else{
+          window.location.href="/login"
+        }
 
       });
     resetForm({ values: '' })
+    
 
   }
 
@@ -69,7 +77,7 @@ function Signup() {
             fullWidth
             color="primary"
             id="outlined-basic"
-            label="Name"
+            label="Full Name"
             variant="outlined"
 
             name="name"
